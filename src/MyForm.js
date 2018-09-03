@@ -1,6 +1,8 @@
 import React from 'react';
 import { withFormik } from 'formik';
 import * as yup from 'yup';
+import Choose from './Choose';
+import Project from './Project';
 
 // Our inner form component which receives our form's state and updater methods as props
 const InnerForm = ({
@@ -13,52 +15,6 @@ const InnerForm = ({
   isSubmitting,
 }) => (
     <form className="simple_form form-box" id="new_contact" noValidate="novalidate" acceptCharset="UTF-8" onSubmit={handleSubmit}>
-        <div>
-            <label>
-                <input
-                    name="status"
-                    type="radio"
-                    value="idea"
-                    checked={values.status === 'idea'}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                />
-                Ideia
-            </label>
-            <label>
-                <input
-                    name="status"
-                    type="radio"
-                    value="project"
-                    checked={values.status === 'project'}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                />
-                Projeto escrito
-            </label>
-            <label>
-                <input
-                    name="status"
-                    type="radio"
-                    value="site"
-                    checked={values.status === 'site'}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                />
-                Site
-            </label>
-            <label>
-                <input
-                    name="status"
-                    type="radio"
-                    value="app"
-                    checked={values.status === 'app'}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                />
-                Aplicativo já desenvolvido
-            </label>
-        </div>
         <input 
             name="utf8" 
             type="hidden" 
@@ -69,63 +25,10 @@ const InnerForm = ({
             name="authenticity_token" 
             value="6qtJXNEB7YeC0E0VlR+IjR4aqHjuee8q+UAwY11oAfINKQ8oaop6R90/R6Mta5pE693R9JyVLCSTqdsoDyxDZg==" 
         />
-        <div className="input string optional contact_name form-group">
-            <label className="string optional" htmlFor="contact_name">
-                Name
-            </label>
-            <input 
-                className="string optional" 
-                type="text" 
-                name="name" 
-                id="contact_name"  
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.name}
-            />
-            {touched.name && errors.name && <div>{errors.name}</div>}
-        </div>
-        <div className="input email optional contact_email form-group">
-            <label className="email optional" htmlFor="contact_email">
-                Email
-            </label>
-            <input 
-                className="string email optional" 
-                type="email" 
-                name="email" 
-                id="contact_email" 
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-            />
-            {touched.email && errors.email && <div>{errors.email}</div>}
-        </div>
-        <div className="input tel optional contact_phone form-group">
-            <label className="tel optional" htmlFor="contact_phone">Phone</label>
-            <input 
-                className="string tel optional" 
-                type="tel" 
-                name="phone" 
-                id="contact_phone" 
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.phone}
-            />
-            {touched.phone && errors.phone && <div>{errors.phone}</div>}
-        </div>
-        <div className="input text optional contact_message form-group">
-            <label className="text optional" htmlFor="contact_message">Message</label>
-            <textarea 
-                className="text optional" 
-                name="message" 
-                id="contact_message"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.message}
-            >
-            </textarea>
-            {touched.message && errors.message && <div>{errors.message}</div>}
-        </div>
-        {values.color === 'blue' ? 'Oi AZUL' : null}
+        <Choose values={values} handleChange={handleChange} handleBlur={handleBlur} />
+
+        {values.status === 'project' ? <Project values={values} handleChange={handleChange} handleBlur={handleBlur} errors={errors} touched={touched} /> : null}
+        
         <button type="submit" disabled={isSubmitting} className="btn">
             Enviar
         </button>
@@ -154,6 +57,7 @@ const MyForm = withFormik({
       setErrors /* setValues, setStatus, and other goodies */,
     }
   ) => {
+      debugger;
     // LoginToMyApp(values).then(
     //   user => {
     //     setSubmitting(false);
