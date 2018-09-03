@@ -125,7 +125,6 @@ const InnerForm = ({
             </textarea>
             {touched.message && errors.message && <div>{errors.message}</div>}
         </div>
-        {values.color === 'blue' ? 'Oi AZUL' : null}
         <button type="submit" disabled={isSubmitting} className="btn">
             Enviar
         </button>
@@ -142,7 +141,7 @@ const schema = yup.object().shape({
 // Wrap our form with the using withFormik HoC
 const MyForm = withFormik({
   // Transform outer props into form values
-  mapPropsToValues: props => ({ email: '', password: '' }),
+  mapPropsToValues: props => ({ name: '', email: '', phone: '', message: '' }),
   // Add a custom validation function (this can be async too!)
   validationSchema: schema,
   // Submission handler
@@ -154,6 +153,7 @@ const MyForm = withFormik({
       setErrors /* setValues, setStatus, and other goodies */,
     }
   ) => {
+      console.log('values', values);
     // LoginToMyApp(values).then(
     //   user => {
     //     setSubmitting(false);
