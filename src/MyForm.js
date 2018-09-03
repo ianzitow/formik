@@ -3,6 +3,7 @@ import { withFormik } from 'formik';
 import * as yup from 'yup';
 import Choose from './Choose';
 import Project from './Project';
+import Budget from './Budget';
 
 // Our inner form component which receives our form's state and updater methods as props
 const InnerForm = ({
@@ -26,6 +27,7 @@ const InnerForm = ({
             value="6qtJXNEB7YeC0E0VlR+IjR4aqHjuee8q+UAwY11oAfINKQ8oaop6R90/R6Mta5pE693R9JyVLCSTqdsoDyxDZg==" 
         />
         <Choose values={values} handleChange={handleChange} handleBlur={handleBlur} />
+        <Budget values={values} handleChange={handleChange} handleBlur={handleBlur} />
 
         {values.status === 'project' ? <Project values={values} handleChange={handleChange} handleBlur={handleBlur} errors={errors} touched={touched} /> : null}
         
@@ -57,7 +59,7 @@ const MyForm = withFormik({
       setErrors /* setValues, setStatus, and other goodies */,
     }
   ) => {
-      debugger;
+      console.log('values', values);
     // LoginToMyApp(values).then(
     //   user => {
     //     setSubmitting(false);
